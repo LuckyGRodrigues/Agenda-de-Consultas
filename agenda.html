@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DoctorCall - Agendamento Médico</title>
+    <title>DoctorCall - Agenda</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,8 +28,35 @@
 
     <main class="container">
         <section class="secao">
-            <h2><span class="material-icons">home</span> Início</h2>
-            <div class="conteudo" id="home-content">
+            <div class="agenda-top">
+                <div>
+                    <h2><span class="material-icons">calendar_today</span> Agendar Consulta</h2>
+                    <p class="muted" id="selected-info">Selecione uma data e horário</p>
+                </div>
+                <div id="doctor-info">
+
+                </div>
+            </div>
+
+            <div class="calendar-section">
+                <h3 class="section-title">Datas Disponíveis</h3>
+                <div class="days-grid" id="days">
+
+                </div>
+            </div>
+
+            <div class="slots-section">
+                <h3 class="section-title">Horários Disponíveis</h3>
+                <div class="slots" id="slots">
+
+                </div>
+            </div>
+
+            <div class="confirm-row">
+                <div class="actions">
+                    <button class="btn btn-ghost" onclick="history.back()">Voltar</button>
+                    <button class="btn btn-primary" id="confirm-btn" disabled>Confirmar Agendamento</button>
+                </div>
             </div>
         </section>
     </main>
