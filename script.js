@@ -17,7 +17,7 @@ const homeData = [
         icon: 'support_agent',
         title: 'Suporte 24/7',
         description: 'Atendimento personalizado a qualquer hora',
-        link: 'sobre-nos.html',
+        link: 'contato.html',
         buttonText: 'Saiba Mais'
     }
 ];

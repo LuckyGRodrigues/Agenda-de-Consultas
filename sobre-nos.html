@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sobre Nós - Agenda de Consultas</title>
-  </head>
-  <body>
-    <header class="header">
-      <div class="logo">🏥 Sobre Nós</div>
-      <nav>
-        <a href="/">Home</a>
-      </nav>
-    </header>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoctorCall - Sobre Nós</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav class="menu-superior">
+        <div class="menu-container">
+            <div class="logo">
+                <span class="material-icons">medical_services</span>
+                DoctorCall
+            </div>
+            <ul class="menu-items">
+                <li><a href="index.html" class="active"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="sobre-nos.html"><span class="material-icons">info</span> Sobre Nós</a></li>
+                <li><a href="medicos.html"><span class="material-icons">people</span> Médicos</a></li>
+                <li class="login-item">
+                    <a href="login.html"><span class="material-icons">account_circle</span> Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <main class="main-content">
       <section class="hero">
@@ -248,19 +261,6 @@
     font-size: 14px;
     color: #666;
     line-height: 1.5;
-  }
-
-  .footer {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 40px 20px;
-    text-align: center;
-    border-radius: 20px 20px 0 0;
-    margin-top: 60px;
-  }
-
-  .footer p {
-    color: #666;
-    font-size: 14px;
   }
 
   @media (max-width: 768px) {
