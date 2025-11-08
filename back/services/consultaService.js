@@ -1,8 +1,24 @@
 const repo = require('../repositories/consultaRepository');
+const profissionalRepo = require('../repositories/profissionalRepository');
 
 const service = {
   list() {
     return repo.getAll();
+  },
+
+  listByCliente(clienteId) {
+    const consultas = repo.getByClienteId(clienteId);
+    return consultas.map(c => {
+      const profissional = profissionalRepo.getById(c.profissionalId);
+      return {
+        id: c.id,
+        medico: profissional?.nome || 'Médico não encontrado',
+        especialidade: profissional?.especialidade || '',
+        data: c.data,
+        horario: c.horario,
+        icone: 'check_circle'
+      };
+    });
   },
 
   get(id) {

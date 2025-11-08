@@ -2,10 +2,10 @@ const repository = {
   profissionais: [
     {
       id: 1,
-      name: "Drª Ana Silva",
+      nome: "Drª Ana Silva",
       especialidade: "Clínico-Geral",
       expAnos: 8,
-      icone: "female",
+      icon: "female",
       disponibilidade: [1,2,3,4,5],
       avaliacao: 4.8
     },
@@ -14,7 +14,7 @@ const repository = {
       nome: "Dr. Bruno Costa",
       especialidade: "Clínico-Geral",
       expAnos: 12,
-      icone: "male",
+      icon: "male",
       disponibilidade: [1,3,5],
       avaliacao: 4.9
     },
@@ -23,7 +23,7 @@ const repository = {
       nome: "Drª Carla Menezes",
       especialidade: "Clínico-Geral",
       expAnos: 5,
-      icone: "female",
+      icon: "female",
       disponibilidade: [2,4],
       avaliacao: 4.7
     }

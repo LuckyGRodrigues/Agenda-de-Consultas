@@ -46,5 +46,6 @@ router.get('/profissionais/:id', requireAuth, profissionalController.getById);
 
 router.get('/consultas', requireAuth, consultaController.list);
 router.get('/consultas/:id', requireAuth, consultaController.getById);
+router.get('/minhas-consultas', requireAuth, consultaController.listByCliente);
 
 module.exports = router;

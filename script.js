@@ -1,11 +1,15 @@
-(async function() {
+(function() {
     const protegidas = ['medicos.html', 'agenda.html', 'consultas.html'];
-    if (!protegidas.includes(location.pathname.split('/').pop())) return;
+    const pagina = location.pathname.split('/').pop();
     
-    try {
-        const res = await fetch('http://localhost:3000/check-auth', { credentials: 'include' });
-        if (!(await res.json()).authenticated) location.href = '/404-not-found';
-    } catch { location.href = '/404-not-found'; }
+    if (protegidas.includes(pagina)) {
+        document.documentElement.style.visibility = 'hidden';
+        
+        fetch('http://localhost:3000/check-auth', { credentials: 'include' })
+            .then(res => res.json())
+            .then(data => data.authenticated ? document.documentElement.style.visibility = 'visible' : location.replace('/404-not-found'))
+            .catch(() => location.replace('/404-not-found'));
+    }
 })();
 
 async function handleLogout() {
@@ -44,56 +48,28 @@ const homeData = [
   }
 ];
 
-const doctors = [
-  { 
-    nome: "Drª Ana Silva",
-    especialidade: "Clínico-Geral",
-    expAnos: 8, 
-    icon: "female", 
-    disponibilidade: [1,2,3,4,5]
-  },
-  { 
-    nome: "Dr. Bruno Costa",
-    especialidade: "Clínico-Geral",
-    expAnos: 12, 
-    icon: "male",
-    disponibilidade: [1,3,5]
-  },
-  { 
-    nome: "Drª Carla Menezes",
-    especialidade: "Clínico-Geral",
-    expAnos: 5, 
-    icon: "female",
-    disponibilidade: [2,4]
-  }
-];
+let doctors = [];
+let consultas = [];
 
-const consultas = [
-  {
-    id: 1,
-    medico: 'Drª Ana Silva',
-    especialidade: 'Clínico Geral',
-    data: '2025-11-10', 
-    horario: '10:00',
-    icone: 'check_circle'
-  },
-  {
-    id: 2,
-    medico: 'Drª Carla Menezes',
-    especialidade: 'Clínico Geral',
-    data: '2025-11-15',
-    horario: '14:30', 
-    icone: 'check_circle' 
-  },
-  {
-    id: 3,
-    medico: 'Dr. Bruno Costa',
-    especialidade: 'Clínico Geral',
-    data: '2025-11-20',
-    horario: '09:00',
-    icone: 'check_circle'
+async function carregarMedicos() {
+  try {
+    const res = await fetch('http://localhost:3000/profissionais', { credentials: 'include' });
+    doctors = await res.json();
+  } catch (error) {
+    console.error('Erro ao carregar médicos:', error);
+    doctors = [];
   }
-];
+}
+
+async function carregarConsultas() {
+  try {
+    const res = await fetch('http://localhost:3000/minhas-consultas', { credentials: 'include' });
+    consultas = await res.json();
+  } catch (error) {
+    console.error('Erro ao carregar consultas:', error);
+    consultas = [];
+  }
+}
 
 function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
@@ -140,9 +116,11 @@ function renderHome() {
   `).join('');
 }
 
-function renderDoctors() {
+async function renderDoctors() {
   const container = document.getElementById('doctors-grid');
   if (!container) return;
+
+  await carregarMedicos();
 
   container.innerHTML = doctors.map(doctor => `
     <div class="card doctor-card">
@@ -163,7 +141,9 @@ function irParaAgenda(nomeMedico) {
   window.location.href = `agenda.html?doctor=${nomeMedico}`;
 }
 
-function renderAgenda() {
+async function renderAgenda() {
+  await carregarMedicos();
+  
   const nomeMedico = decodeURIComponent(getQueryParam('doctor') || '');
   const medico = doctors.find(d => d.nome === nomeMedico);
   if (!medico) return;
@@ -252,9 +232,11 @@ function selecionarHorario(elemento) {
   document.getElementById('confirm-btn').disabled = false;
 }
 
-function renderConsultas() {
+async function renderConsultas() {
   const container = document.getElementById('lista-consultas');
   if (!container) return;
+
+  await carregarConsultas();
 
   if (!consultas.length) {
     container.innerHTML = `
