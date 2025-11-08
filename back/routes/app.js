@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const session = require('express-session');
 const simpleLogger = require('../middlewares/simpleLogger');
 const requireAuth = require('../middlewares/requireAuth');
@@ -23,9 +24,19 @@ router.use(session({
 
 router.use(simpleLogger);
 
-router.get('/', (req, res) => res.status(200).json({ message: 'Olá, backend com Node.js!' }));
-
 router.post('/login', clienteController.login);
+
+router.post('/logout', (req, res) => {
+    req.session.destroy();
+    res.json({ success: true });
+});
+
+router.get('/check-auth', (req, res) => {
+    if (req.session && req.session.clientId) {
+        return res.json({ authenticated: true, clientId: req.session.clientId });
+    }
+    res.status(401).json({ authenticated: false });
+});
 
 router.get('/clientes', requireAuth, clienteController.list);
 router.get('/clientes/:id', requireAuth, clienteController.getById);

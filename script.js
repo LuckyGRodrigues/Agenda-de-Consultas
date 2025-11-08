@@ -1,3 +1,25 @@
+(async function() {
+    const protegidas = ['medicos.html', 'agenda.html', 'consultas.html'];
+    if (!protegidas.includes(location.pathname.split('/').pop())) return;
+    
+    try {
+        const res = await fetch('http://localhost:3000/check-auth', { credentials: 'include' });
+        if (!(await res.json()).authenticated) location.href = '/404-not-found';
+    } catch { location.href = '/404-not-found'; }
+})();
+
+async function handleLogout() {
+    try {
+        await fetch('http://localhost:3000/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+        location.href = '/login.html';
+    } catch (error) {
+        console.error('Erro ao fazer logout:', error);
+    }
+}
+
 const homeData = [
   {
     icon: 'medical_services',

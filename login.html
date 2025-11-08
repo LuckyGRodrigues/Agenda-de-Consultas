@@ -3,18 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login</title>
+    <title>Login - DoctorCall</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
+    <nav class="menu-superior">
+      <div class="menu-container">
+        <div class="logo">
+          <span class="material-icons">medical_services</span>
+          DoctorCall
+        </div>
+        <ul class="menu-items">
+          <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+          <li><a href="sobre-nos.html"><span class="material-icons">info</span> Sobre Nós</a></li>
+          <li><a href="medicos.html"><span class="material-icons">people</span> Médicos</a></li>
+          <li class="login-item">
+            <a href="login.html" class="active"><span class="material-icons">account_circle</span> Login</a>
+          </li>
+          <li class="logout-item">
+            <a href="#" onclick="handleLogout(); return false;"><span class="material-icons">logout</span> Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
     <div class="login-box">
       <h2>Login</h2>
       <form id="loginForm">
         <div class="input-group">
-          <input id="email" name="email" type="email" placeholder="Email" required />
-        </div>
-
-        <div class="input-group">
-          <input id="senha" name="senha" type="password" placeholder="Senha" required />
+          <input id="nome" name="nome" type="text" placeholder="Nome" required />
         </div>
 
         <button type="submit" id="btnLogin" class="btn">Login</button>
@@ -22,17 +41,14 @@
       </form>
     </div>
 
+    <script src="script.js"></script>
   </body>
 </html>
 
 <style>
   body {
-    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: #94B4FF;
+    flex-direction: column;
   }
 
   .login-box {
@@ -41,6 +57,7 @@
     border-radius: 15px;
     max-width: 380px;
     width: 100%;
+    margin: auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
   }
@@ -93,3 +110,34 @@
     }
   }
 </style>
+
+<script>
+  document.getElementById('loginForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const btn = e.target.btnLogin;
+    const msg = document.getElementById('msg');
+    
+    btn.disabled = true;
+    msg.textContent = 'Entrando...';
+    
+    try {
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ nome: e.target.nome.value })
+      });
+      
+      if (res.ok) {
+        msg.textContent = 'Sucesso!';
+        setTimeout(() => location.href = '/medicos.html', 500);
+      } else {
+        msg.textContent = (await res.json()).error || 'Erro';
+        btn.disabled = false;
+      }
+    } catch {
+      msg.textContent = 'Erro de conexão';
+      btn.disabled = false;
+    }
+  };
+</script>
