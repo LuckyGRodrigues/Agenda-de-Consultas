@@ -17,8 +17,8 @@ module.exports = {
     } catch (err) {
       res.status(err.status || 500).json({ error: err.message || 'Erro interno' });
     }
-  }
-  ,
+  },
+  
   login(req, res) {
     try {
       const nome = req.body?.nome;
