@@ -1,5 +1,5 @@
-const repo = require('../repositories/consultaRepository');
-const profissionalRepo = require('../repositories/profissionalRepository');
+import repo from '../repositories/consultaRepository.js';
+import profissionalRepo from '../repositories/profissionalRepository.js';
 
 const service = {
   list() {
@@ -60,4 +60,4 @@ const service = {
   }
 };
 
-module.exports = service;
+export default service;

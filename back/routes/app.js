@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const path = require('path');
-const session = require('express-session');
-const simpleLogger = require('../middlewares/simpleLogger');
-const requireAuth = require('../middlewares/requireAuth');
-const clienteController = require('../controllers/clienteController');
-const profissionalController = require('../controllers/profissionalController');
-const consultaController = require('../controllers/consultaController');
+import path from 'path';
+import session from 'express-session';
+import simpleLogger from '../middlewares/simpleLogger.js';
+import requireAuth from '../middlewares/requireAuth.js';
+import clienteController from '../controllers/clienteController.js';
+import profissionalController from '../controllers/profissionalController.js';
+import consultaController from '../controllers/consultaController.js';
 
 router.use(session({
     name: "session.id",
@@ -48,4 +48,4 @@ router.get('/consultas', requireAuth, consultaController.list);
 router.get('/consultas/:id', requireAuth, consultaController.getById);
 router.get('/minhas-consultas', requireAuth, consultaController.listByCliente);
 
-module.exports = router;
+export default router;

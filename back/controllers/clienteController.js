@@ -1,6 +1,6 @@
-const service = require('../services/clienteService');
+import service from '../services/clienteService.js';
 
-module.exports = {
+export default {
   list(req, res) {
     try {
       res.status(200).json(service.list());
@@ -18,7 +18,7 @@ module.exports = {
       res.status(err.status || 500).json({ error: err.message || 'Erro interno' });
     }
   },
-  
+
   login(req, res) {
     try {
       const nome = req.body?.nome;

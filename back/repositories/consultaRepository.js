@@ -55,4 +55,4 @@ const repository = {
   },
 };
 
-module.exports = repository;
+export default repository;

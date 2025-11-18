@@ -1,6 +1,6 @@
-const service = require('../services/consultaService');
+import service from '../services/consultaService.js';
 
-module.exports = {
+export default {
   list(req, res) {
     try {
       res.status(200).json(service.list());
