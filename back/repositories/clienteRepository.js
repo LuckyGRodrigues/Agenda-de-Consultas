@@ -18,4 +18,4 @@ const repository = {
   }
 };
 
-export default repository;
+module.exports = repository;

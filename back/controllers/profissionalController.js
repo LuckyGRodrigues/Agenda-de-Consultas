@@ -1,6 +1,6 @@
-import service from '../services/profissionalService.js';
+const service = require('../services/profissionalService');
 
-export default {
+module.exports = {
   list(req, res) {
     try {
       res.status(200).json(service.list());
